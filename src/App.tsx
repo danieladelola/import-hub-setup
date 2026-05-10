@@ -76,7 +76,7 @@ function createStableRouterWindow(): Window | undefined {
         return "idx" in state ? state : { ...state, idx: 0 };
       }
 
-      const value = Reflect.get(target, prop, receiver);
+      const value = Reflect.get(target, prop, target);
       return typeof value === "function" ? value.bind(target) : value;
     },
   });
