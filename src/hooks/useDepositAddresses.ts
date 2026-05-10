@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { PAYMENT_COINS } from "@/lib/paymentCoins";
+import { DEPOSIT_ADDRESS_FALLBACKS } from "@/lib/depositAddressFallbacks";
 
 export type DepositAddressEntry = {
   address: string;
@@ -15,7 +16,12 @@ function buildDefaults(): DepositAddressMap {
   const m: DepositAddressMap = {};
   for (const c of PAYMENT_COINS) {
     for (const n of c.networks) {
-      m[`${c.symbol}:${n}`] = { address: "", enabled: true, network: n };
+      const key = `${c.symbol}:${n}`;
+      m[key] = {
+        address: DEPOSIT_ADDRESS_FALLBACKS[key] ?? "",
+        enabled: true,
+        network: n,
+      };
     }
   }
   return m;
