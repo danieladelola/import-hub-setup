@@ -64,6 +64,15 @@ function RouteFallback() {
   );
 }
 
+function stabilizeReactRouterHistory() {
+  if (typeof window === "undefined") return;
+  const currentState = window.history.state;
+  if (currentState && typeof currentState === "object" && "idx" in currentState) return;
+  window.history.replaceState({ ...(currentState ?? {}), idx: 0 }, "");
+}
+
+stabilizeReactRouterHistory();
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
