@@ -64,12 +64,35 @@ function RouteFallback() {
   );
 }
 
+function createStableRouterWindow(): Window | undefined {
+  if (typeof window === "undefined") return undefined;
+
+  const stableWindow = Object.create(window) as Window;
+  const historyProxy = new Proxy(window.history, {
+    get(target, prop, receiver) {
+      if (prop === "state") {
+        const state = target.state;
+        if (!state || typeof state !== "object") return { idx: 0 };
+        return "idx" in state ? state : { ...state, idx: 0 };
+      }
+
+      const value = Reflect.get(target, prop, target);
+      return typeof value === "function" ? value.bind(target) : value;
+    },
+  });
+
+  Object.defineProperty(stableWindow, "history", { value: historyProxy });
+  return stableWindow;
+}
+
+const stableRouterWindow = createStableRouterWindow();
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter window={stableRouterWindow}>
         <AuthProvider>
           <Suspense fallback={<RouteFallback />}>
             <Routes>

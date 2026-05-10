@@ -103,6 +103,12 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var s=window.history.state;if(!s||typeof s!=='object'||!('idx' in s)){window.history.replaceState(Object.assign({},s||{},{idx:0}),'')}}catch(e){}",
+          }}
+        />
       </head>
       <body>
         {children}
