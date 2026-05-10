@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "HARATRADING" },
+      { name: "description", content: "Gem Finder Hub is a web application for managing cryptocurrency staking and rewards." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "HARATRADING" },
+      { property: "og:description", content: "Gem Finder Hub is a web application for managing cryptocurrency staking and rewards." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "HARATRADING" },
+      { name: "twitter:description", content: "Gem Finder Hub is a web application for managing cryptocurrency staking and rewards." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/05dd9469-90f1-4952-9ef6-42e983cd9f75/id-preview-46c9c533--d755e241-5bf4-4b96-8cd0-5620fbdae849.lovable.app-1778167180197.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/05dd9469-90f1-4952-9ef6-42e983cd9f75/id-preview-46c9c533--d755e241-5bf4-4b96-8cd0-5620fbdae849.lovable.app-1778167180197.png" },
     ],
     links: [
       {
