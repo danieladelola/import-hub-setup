@@ -64,35 +64,15 @@ function RouteFallback() {
   );
 }
 
-function createStableRouterWindow(): Window | undefined {
-  if (typeof window === "undefined") return undefined;
-
-  const stableWindow = Object.create(window) as Window;
-  const historyProxy = new Proxy(window.history, {
-    get(target, prop, receiver) {
-      if (prop === "state") {
-        const state = target.state;
-        if (!state || typeof state !== "object") return { idx: 0 };
-        return "idx" in state ? state : { ...state, idx: 0 };
-      }
-
-      const value = Reflect.get(target, prop, target);
-      return typeof value === "function" ? value.bind(target) : value;
-    },
-  });
-
-  Object.defineProperty(stableWindow, "history", { value: historyProxy });
-  return stableWindow;
-}
-
-const stableRouterWindow = createStableRouterWindow();
+// ❌ REMOVED: createStableRouterWindow — this was causing the Illegal invocation crash
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter window={stableRouterWindow}>
+      {/* ✅ Plain BrowserRouter — no custom window prop needed */}
+      <BrowserRouter>
         <AuthProvider>
           <Suspense fallback={<RouteFallback />}>
             <Routes>

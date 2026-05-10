@@ -48,7 +48,7 @@ export function ImpersonationBanner() {
         action: "end_impersonation",
         log_id: state.logId,
         return_token: state.returnToken,
-        // redirect_to: `${window.location.origin}${returnPath}`,
+        redirect_to: `${window.location.origin}${returnPath}`,
       }),
     });
     const data = await res.json().catch(() => ({}));
